@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Calculation {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  userEmail   String?  @map("user_email")
+  housingType String   @map("housing_type")
+  heatingType String   @map("heating_type")
+  postalCode  String   @map("postal_code")
+  monthlyCost Decimal  @map("monthly_cost") @db.Decimal(10, 2)
+  aiReport    String?  @map("ai_report")
+  isPremium   Boolean  @default(false) @map("is_premium")
+
+  @@map("calculations")
+}
+
+model AffiliateClick {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  category      String
+  calculationId String?  @map("calculation_id")
+  ipAddress     String?  @map("ip_address")
+
+  @@map("affiliate_clicks")
+}
