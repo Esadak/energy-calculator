@@ -5,37 +5,21 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'Energy Calculator - Sänk dina energikostnader med AI',
-  description:
-    'Få personliga rekommendationer för att sänka dina energikostnader. AI-driven analys för svenska hushåll.',
-  keywords: [
-    'energikalkylator',
-    'energibesparing',
-    'lägre energikostnader',
-    'AI energi',
-    'solceller',
-    'värmepump',
-    'energieffektivitet',
-  ],
-  authors: [{ name: 'Energy Calculator' }],
+  title: 'EnergyKoll AI - Sänk dina energikostnader',
+  description: 'Få personliga, AI-drivna rekommendationer för att spara upp till 5 000 kr/år på dina energikostnader. Gratis och utan registrering.',
+  metadataBase: new URL('https://energikoll-ai.vercel.app'), // <-- DETTA ÄR DET VIKTIGA TILLÄGGET!
   openGraph: {
-    title: 'Energy Calculator - Sänk dina energikostnader med AI',
-    description:
-      'Få personliga rekommendationer för att sänka dina energikostnader med upp till 5000 kr per år.',
+    title: 'EnergyKoll AI - Sänk dina energikostnader',
+    description: 'Få personliga, AI-drivna rekommendationer för att spara pengar på energi.',
+    url: 'https://energikoll-ai.vercel.app',
+    siteName: 'EnergyKoll AI',
     locale: 'sv_SE',
     type: 'website',
-    images: [{ url: 'https://bolt.new/static/og_default.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Energy Calculator - Sänk dina energikostnader med AI',
-    description:
-      'Få personliga rekommendationer för att sänka dina energikostnader med upp till 5000 kr per år.',
-    images: [{ url: 'https://bolt.new/static/og_default.png' }],
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: 'EnergyKoll AI - Sänk dina energikostnader',
+    description: 'Få personliga, AI-drivna rekommendationer för att spara pengar på energi.',
   },
 };
 

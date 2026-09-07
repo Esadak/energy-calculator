@@ -16,7 +16,7 @@ import {
   Shield
 } from "lucide-react";
 
-const ADMIN_PASSWORD = "admin123";
+const ADMIN_PASSWORD = "SparaEl@2026";
 
 interface Stats {
   totalCalculations: number;
