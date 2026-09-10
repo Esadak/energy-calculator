@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: 'EnergyKoll AI - Sänk dina energikostnader',
@@ -42,7 +43,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv">
-      <body>{children}</body>
+      <body>
+        {/* Lägg till Providers här */}
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

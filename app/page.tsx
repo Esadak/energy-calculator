@@ -1,16 +1,25 @@
+"use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { AuthModal } from "@/components/auth/auth-modal";
 import { 
   Zap, 
   Leaf, 
   Wallet, 
   CheckCircle2, 
   ArrowRight,
-  TrendingDown 
+  TrendingDown,
+  LogOut,
+  User
 } from "lucide-react";
 
 export default function HomePage() {
+  const { data: session } = useSession();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header/Navigation */}
@@ -33,11 +42,36 @@ export default function HomePage() {
               Kalkylator
             </Link>
           </nav>
-          <Link href="/calculator">
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              Kom igång <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
+          
+          {/* Login/Logout Section */}
+          <div className="flex items-center gap-4">
+            {session ? (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 text-sm">
+                  <User className="w-4 h-4 text-gray-600" />
+                  <span className="text-gray-700 font-medium">
+                    {session.user?.name || session.user?.email}
+                  </span>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => signOut()}
+                  className="text-red-600 border-red-200 hover:bg-red-50"
+                >
+                  <LogOut className="w-4 h-4 mr-1" />
+                  Logga ut
+                </Button>
+              </div>
+            ) : (
+              <Button 
+                onClick={() => setIsAuthModalOpen(true)}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                Logga in
+              </Button>
+            )}
+          </div>
         </div>
       </header>
 
@@ -89,10 +123,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero Image/Card - FIXAD VERSION */}
+          {/* Hero Image/Card */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-400 to-blue-600 aspect-[4/3]">
-              {/* Använder en gradient som bakgrund istället för extern bild */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center text-white p-8">
                   <Zap className="w-24 h-24 mx-auto mb-4 opacity-90" />
@@ -256,6 +289,12 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </div>
   );
 }

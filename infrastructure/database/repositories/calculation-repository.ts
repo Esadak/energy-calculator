@@ -1,7 +1,9 @@
 import { prisma } from '../client';
 import type { Calculation } from '@prisma/client';
 
+// NYTT: Lägger till userId i interfacet
 export interface CreateCalculationData {
+  userId?: string; // <-- NYTT
   userEmail?: string;
   housingType: string;
   heatingType: string;
@@ -15,6 +17,7 @@ export const calculationRepository = {
   async create(data: CreateCalculationData): Promise<Calculation> {
     return await prisma.calculation.create({
       data: {
+        userId: data.userId, // <-- NYTT: Sparar userId om den finns
         userEmail: data.userEmail,
         housingType: data.housingType,
         heatingType: data.heatingType,
@@ -29,6 +32,14 @@ export const calculationRepository = {
   async findById(id: string): Promise<Calculation | null> {
     return await prisma.calculation.findUnique({
       where: { id },
+    });
+  },
+
+  // NYTT: Hämta beräkningar för en specifik användare (behövs för dashboarden)
+  async findByUserId(userId: string): Promise<Calculation[]> {
+    return await prisma.calculation.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
     });
   },
 

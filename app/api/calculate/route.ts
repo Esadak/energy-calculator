@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from "next-auth"; // NYTT: För att kolla inloggning
+import { authOptions } from "@/lib/auth";     // NYTT: Dina auth-inställningar
 import { getEnergyReport } from '@/core/ai/gemini-client';
 import { calculationRepository } from '@/infrastructure/database/repositories/calculation-repository';
 import { z } from 'zod';
@@ -16,6 +18,10 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const validated = calculateSchema.parse(body);
+
+    // NYTT: Kolla om användaren är inloggad
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.id || undefined; // Om inloggad: hämta ID, annars: null
 
     // Bygg prompt för AI:n
     const prompt = `Du är en certifierad energiexpert i Europa. Användaren bor i en ${validated.housingType} med ${validated.heatingType} och betalar ${validated.monthlyCost} kr per månad i postnummer ${validated.postalCode}.
@@ -52,8 +58,9 @@ Svara på svenska. Var professionell, empatisk och faktabaserad.`;
     // Anropa AI:n
     const report = await getEnergyReport(prompt);
 
-    // Spara beräkningen i databasen
+    // Spara beräkningen i databasen (NYTT: lägger till userId)
     const calculation = await calculationRepository.create({
+      userId: userId, // <-- NYTT: Kopplar beräkningen till användaren om inloggad
       housingType: validated.housingType,
       heatingType: validated.heatingType,
       postalCode: validated.postalCode,
