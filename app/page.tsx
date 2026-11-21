@@ -30,12 +30,12 @@ export default function HomePage() {
       {/* Header/Navigation */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-blue-600 p-2 rounded-lg">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl font-bold">Energy Calculator</span>
-          </div>
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer">
+  <div className="bg-blue-600 p-2 rounded-lg">
+    <Zap className="w-6 h-6 text-white" />
+  </div>
+  <span className="text-xl font-bold">Energy Calculator</span>
+</Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#hur-fungerar" className="text-gray-600 hover:text-gray-900 transition">
               Så fungerar det
