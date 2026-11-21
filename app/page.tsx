@@ -49,29 +49,35 @@ export default function HomePage() {
           </nav>
           
           {/* Login/Logout Section */}
-          <div className="flex items-center gap-4">
-            {session ? (
-              <div className="flex items-center gap-3">
-                <Link href="/dashboard">
-                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
-                    Mina beräkningar
-                  </Button>
-                </Link>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => signOut()}
-                  className="text-red-600 border-red-200 hover:bg-red-50"
-                >
-                  Logga ut
-                </Button>
-              </div>
-            ) : (
-              <Button onClick={() => setIsAuthModalOpen(true)}>
-                Logga in
-              </Button>
-            )}
-          </div>
+          {/* Login/Logout Section */}
+<div className="flex items-center gap-4">
+  {session ? (
+    <div className="flex items-center gap-3">
+      <Link href="/dashboard">
+        <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+          Mina beräkningar
+        </Button>
+      </Link>
+      <Link href="/settings">
+        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+          Inställningar
+        </Button>
+      </Link>
+      <Button 
+        variant="outline" 
+        size="sm"
+        onClick={() => signOut()}
+        className="text-red-600 border-red-200 hover:bg-red-50"
+      >
+        Logga ut
+      </Button>
+    </div>
+  ) : (
+    <Button onClick={() => setIsAuthModalOpen(true)}>
+      Logga in
+    </Button>
+  )}
+</div>
         </div>
       </header>
 

@@ -30,6 +30,12 @@ export default async function DashboardPage() {
             </Link>
             <h1 className="text-xl font-bold">Mina Beräkningar</h1>
           </div>
+          {/* I header-sektionen, efter "Mina beräkningar" knappen */}
+<Link href="/settings">
+  <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+    Inställningar
+  </Button>
+</Link>
           <div className="text-sm text-gray-600">
             {session.user.email}
           </div>
